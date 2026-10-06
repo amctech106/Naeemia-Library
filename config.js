@@ -8,5 +8,5 @@ const INSTITUTION = {
 
   // لوگو کی فائل کا راستہ، مثلاً "assets/logo.png"
   // خالی "" ہو تو پہلے والا کتاب کا آئیکن دکھے گا
-  logo: "./assets/naeemia.png",
+  logo: "./assets/images/naeemia.png",
 };
