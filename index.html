@@ -8,44 +8,44 @@
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
     <style>
       @font-face {
-        font-family: "Jameel Noori Nastaleeq";
+        font-family: "Noto Nastaliq Urdu";
         font-weight: 400;
         font-display: swap;
-        src: url("assets/fonts/Jameel\ Noori\ Nastaleeq.ttf")
-          format("ttf");
+        src: url("assets/fonts/noto-nastaliq-urdu-arabic-400-normal.woff2")
+          format("woff2");
         unicode-range:
           U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1,
           U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF,
           U+FE70-FE74, U+FE76-FEFC;
       }
       @font-face {
-        font-family: "Jameel Noori Nastaleeq";
+        font-family: "Noto Nastaliq Urdu";
         font-weight: 400;
         font-display: swap;
-        src: url("assets/fonts/Jameel\ Noori\ Nastaleeq.ttf")
-          format("ttf");
+        src: url("assets/fonts/noto-nastaliq-urdu-latin-400-normal.woff2")
+          format("woff2");
         unicode-range:
           U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
           U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
           U+FEFF, U+FFFD;
       }
       @font-face {
-        font-family: "Jameel Noori Nastaleeq";
+        font-family: "Noto Nastaliq Urdu";
         font-weight: 700;
         font-display: swap;
-        src: url("assets/fonts/Jameel\ Noori\ Nastaleeq.ttf")
-          format("ttf");
+        src: url("assets/fonts/noto-nastaliq-urdu-arabic-700-normal.woff2")
+          format("woff2");
         unicode-range:
           U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1,
           U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF,
           U+FE70-FE74, U+FE76-FEFC;
       }
       @font-face {
-        font-family: "Jameel Noori Nastaleeq";
+        font-family: "Noto Nastaliq Urdu";
         font-weight: 700;
         font-display: swap;
-        src: url("assets/fonts/Jameel\ Noori\ Nastaleeq.ttf")
-          format("ttf");
+        src: url("assets/fonts/noto-nastaliq-urdu-latin-700-normal.woff2")
+          format("woff2");
         unicode-range:
           U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
           U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
@@ -131,7 +131,6 @@
       tr:hover {
         background-color: #f1f5f9;
       }
-
       .print-header {
         display: none;
       }
@@ -161,6 +160,27 @@
         dir="rtl"
       ></div>
       <div class="flex items-center ml-4">
+        <button
+          id="syncBtn"
+          onclick="DataStore.link()"
+          class="nav-icon flex items-center gap-2"
+          title="ایپ کا فولڈر جوڑیں تاکہ ڈیٹا فائلوں میں محفوظ ہو"
+          style="font-size: 0.85rem"
+        >
+          <span
+            id="syncDot"
+            style="width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; display: inline-block"
+          ></span>
+          <i class="fas fa-database"></i>
+          <span id="syncText">...</span>
+        </button>
+        <button
+          onclick="DataStore.downloadFiles()"
+          class="nav-icon"
+          title="ڈیٹا فائلیں (books_data.js اور issued_data.js) ڈاؤنلوڈ کریں"
+        >
+          <i class="fas fa-file-arrow-down"></i>
+        </button>
         <button
           onclick="showPage('issuedPage')"
           class="nav-icon"
@@ -364,6 +384,27 @@
               style="display: none"
               onchange="importFromExcel(event)"
             />
+            <button
+              class="icon-btn text-orange-600 text-2xl"
+              onclick="exportJSON()"
+              title="JSON بیک اپ ڈاؤنلوڈ کریں (کتابیں + اجراء)"
+            >
+              <i class="fas fa-file-export"></i>
+            </button>
+            <button
+              class="icon-btn text-teal-600 text-2xl"
+              onclick="document.getElementById('importJsonBooks').click()"
+              title="JSON بیک اپ امپورٹ کریں"
+            >
+              <i class="fas fa-file-code"></i>
+            </button>
+            <input
+              type="file"
+              id="importJsonBooks"
+              accept=".json,application/json"
+              style="display: none"
+              onchange="importJSON(event)"
+            />
           </div>
         </div>
 
@@ -455,6 +496,27 @@
               style="display: none"
               onchange="importIssuedFromExcel(event)"
             />
+            <button
+              class="icon-btn text-orange-600 text-2xl"
+              onclick="exportJSON()"
+              title="JSON بیک اپ ڈاؤنلوڈ کریں (کتابیں + اجراء)"
+            >
+              <i class="fas fa-file-export"></i>
+            </button>
+            <button
+              class="icon-btn text-teal-600 text-2xl"
+              onclick="document.getElementById('importJsonIssued').click()"
+              title="JSON بیک اپ امپورٹ کریں"
+            >
+              <i class="fas fa-file-code"></i>
+            </button>
+            <input
+              type="file"
+              id="importJsonIssued"
+              accept=".json,application/json"
+              style="display: none"
+              onchange="importJSON(event)"
+            />
 
             <!-- نئی کتاب جاری کریں کا بٹن -->
             <button class="btn btn-primary" onclick="openIssueModal()">
@@ -470,6 +532,7 @@
               <tr>
                 <th>نام (استاد/طالب علم)</th>
                 <th>کتاب کا نام</th>
+                <th class="text-center">جلد نمبر</th>
                 <th class="text-center">تاریخ اجراء</th>
                 <th class="text-center">واپسی کی تاریخ</th>
                 <th class="text-center">اسٹیٹس</th>
@@ -661,6 +724,18 @@
           </div>
           <div>
             <label class="block mb-2 font-bold text-gray-700"
+              >جلد نمبر
+              <span id="iVolHint" class="text-sm font-normal text-gray-500"></span
+            ></label>
+            <input
+              type="text"
+              id="iVolNo"
+              placeholder="مثلاً 1"
+              class="w-full border p-2.5 rounded font-sans focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label class="block mb-2 font-bold text-gray-700"
               >تاریخ اجراء <span class="text-red-500">*</span></label
             >
             <input
@@ -743,25 +818,23 @@
           };
           box.innerHTML = "";
           box.appendChild(img);
-        };
-       
- 
-
-    var pl = document.getElementById("printLogo");
-    if (c.logo) {
-      pl.src = c.logo;
-      pl.onerror = function () { pl.style.display = "none"; };
-    } else {
-      pl.style.display = "none";
-    }
-    document.getElementById("printName").textContent = c.name || "";
-    document.getElementById("printAddress").textContent = c.address || "";
-  
-
+        }
+        var pl = document.getElementById("printLogo");
+        if (c.logo) {
+          pl.src = c.logo;
+          pl.onerror = function () {
+            pl.style.display = "none";
+          };
+        } else {
+          pl.style.display = "none";
+        }
+        document.getElementById("printName").textContent = c.name || "";
+        document.getElementById("printAddress").textContent = c.address || "";
       })();
     </script>
     <script src="books_data.js"></script>
     <script src="issued_data.js"></script>
+    <script src="storage.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
